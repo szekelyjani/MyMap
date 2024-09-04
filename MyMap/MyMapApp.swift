@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct MyMapApp: App {
+    @State private var locationManager = LocationManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if locationManager.isAuthorized {
+                MapView()
+            } else {
+                LocationDeniedView()
+            }
         }
+        .environment(locationManager)
     }
 }
